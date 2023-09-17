@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">WoodEWeightTracker</string>
+    <string name="app_name">Weight Tracker</string>
+    <string name="input_name">Name</string>
+    <string name="say_hello">Say Hello</string>
 </resources>
