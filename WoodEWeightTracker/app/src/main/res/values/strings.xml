@@ -1,5 +1,40 @@
 <resources>
     <string name="app_name">Weight Tracker</string>
-    <string name="input_name">Name</string>
-    <string name="say_hello">Say Hello</string>
+    <string name="track_your_weight">Track Your Weight</string>
+    <string name="please_log_in">Please Log In</string>
+    <string name="user_name">User Name</string>
+    <string name="password">Password</string>
+    <string name="log_in">LOGIN</string>
+    <string name="create_new_user">CREATE NEW USER</string>
+    <string name="_0_0">0.0</string>
+    <string name="goal_weight">Goal Weight</string>
+    <string name="new_weight">NEW WEIGHT</string>
+    <string name="new_goal">EDIT GOAL</string>
+    <string name="enter_goal_weight">Enter Goal Weight</string>
+    <string name="weight">Weight</string>
+    <string name="date">Date</string>
+
+    <string-array name="weight_number">
+        <item>230</item>
+        <item>220</item>
+        <item>210</item>
+        <item>200</item>
+        <item>190</item>
+        <item>180</item>
+        <item>170</item>
+        <item>160</item>
+        <item>150</item>
+    </string-array>
+
+    <string-array name="weight_date">
+        <item>10/01/2022</item>
+        <item>11/01/2022</item>
+        <item>12/01/2022</item>
+        <item>01/01/2023</item>
+        <item>02/01/2023</item>
+        <item>03/01/2023</item>
+        <item>04/01/2023</item>
+        <item>05/01/2023</item>
+        <item>06/01/2023</item>
+    </string-array>
 </resources>
