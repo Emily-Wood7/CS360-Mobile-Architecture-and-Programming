@@ -13,6 +13,10 @@
     <string name="enter_goal_weight">Enter Goal Weight</string>
     <string name="weight">Weight</string>
     <string name="date">Date</string>
+    <string name="enable_notifications">Enable Notifications</string>
+    <string name="_5555555555">5555555555</string>
+    <string name="enter_phone_number">Enter Phone Number</string>
+    <string name="submit">Submit</string>
 
     <string-array name="weight_number">
         <item>230</item>
