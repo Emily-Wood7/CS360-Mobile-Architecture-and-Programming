@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText passwordText = null;
     private Button buttonSubmit = null;
     private Button buttonNewUser = null;
+    DBUserHelper DB;
 
 
     @Override
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         buttonNewUser = findViewById(R.id.buttonNewUser);
         buttonSubmit.setEnabled(false);
         buttonNewUser.setEnabled(false);
+        DB = new DBUserHelper(this);
         userText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -48,15 +51,51 @@ public class MainActivity extends AppCompatActivity {
         buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, TrackActivity.class);
-                startActivity(intent);
+                String user = userText.getText().toString();
+                String pass = passwordText.getText().toString();
+
+                if(user.equals("") || pass.equals("")) {
+                    Toast.makeText(MainActivity.this, "Please Enter all fields", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Boolean checkUser = DB.checkUsername(user);
+                    Boolean checkPassword = DB.checkUsernamePassword(user, pass);
+                    if (checkUser == false) {
+                            Toast.makeText(MainActivity.this, "User Does Not Exist. Create New User.", Toast.LENGTH_SHORT).show();
+                        }
+                    else {
+                        if (checkPassword == false) {
+                            Toast.makeText(MainActivity.this, "Incorrect Password.", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Intent intent = new Intent(MainActivity.this, TrackActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                }
             }
         });
         buttonNewUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, TrackActivity.class);
-                startActivity(intent);
+                String user = userText.getText().toString();
+                String pass = passwordText.getText().toString();
+
+                if(user.equals("") || pass.equals("")) {
+                    Toast.makeText(MainActivity.this, "Please Enter all fields", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Boolean checkUser = DB.checkUsername(user);
+                    if (checkUser == false) {
+                        Boolean insert = DB.insertData(user, pass);
+                        if (insert == true) {
+                            Toast.makeText(MainActivity.this, "New User Created Successfully", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    else {
+                    Toast.makeText(MainActivity.this, "User already exists", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
     }
