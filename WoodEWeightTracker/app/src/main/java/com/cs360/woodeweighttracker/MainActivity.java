@@ -20,11 +20,6 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonSubmit = null;
     private Button buttonNewUser = null;
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.weight_menu, menu);
-        return true;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

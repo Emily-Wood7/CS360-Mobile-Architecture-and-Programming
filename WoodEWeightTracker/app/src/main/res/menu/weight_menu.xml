@@ -3,7 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/track_weight"
+        android:title="@string/track_weight"
+        app:showAsAction="never"/>
+    <item
         android:id="@+id/notifications"
         android:title="@string/enable_notifications"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/logout"
+        android:title="@string/log_out"
         app:showAsAction="never"/>
 </menu>

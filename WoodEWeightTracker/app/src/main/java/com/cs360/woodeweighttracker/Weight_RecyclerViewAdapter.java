@@ -15,6 +15,7 @@ public class Weight_RecyclerViewAdapter extends RecyclerView.Adapter<Weight_Recy
 
     Context context;
     ArrayList<WeightModel> weightModel;
+    LayoutInflater inflater;
 
     public Weight_RecyclerViewAdapter(Context context, ArrayList<WeightModel> weightModel) {
         this.context = context;

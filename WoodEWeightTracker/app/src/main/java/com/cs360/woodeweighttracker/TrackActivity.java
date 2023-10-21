@@ -11,12 +11,13 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class TrackActivity extends AppCompatActivity {
-    private Button newGoalButton = null;
+    private Button newGoalButton, newWeightButton;
     private String weightText = null;
     private TextView goalWeightDisplay = null;
 
@@ -28,6 +29,7 @@ public class TrackActivity extends AppCompatActivity {
 
         newGoalButton = findViewById(R.id.newGoalButton);
         goalWeightDisplay = findViewById(R.id.goalWeightDisplay);
+        newWeightButton = findViewById(R.id.newWeightButton);
 
         newGoalButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,6 +46,46 @@ public class TrackActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         weightText = weightInput.getText().toString();
                         goalWeightDisplay.setText(weightText);
+                    }
+                });
+                dialogBox.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                dialogBox.show();
+            }
+        });
+
+        newWeightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder dialogBox = new AlertDialog.Builder(TrackActivity.this);
+                dialogBox.setTitle("Enter New Daily Weight");
+
+                LinearLayout layout = new LinearLayout(TrackActivity.this);
+                layout.setOrientation(LinearLayout.VERTICAL);
+
+                TextView textView1 = new TextView(TrackActivity.this);
+                textView1.setText("Enter Weight");
+                EditText weight_text = new EditText(TrackActivity.this);
+                TextView textView2 = new TextView(TrackActivity.this);
+                textView2.setText("Enter Date");
+                EditText date_text = new EditText(TrackActivity.this);
+
+                layout.addView(textView1);
+                layout.addView(weight_text);
+                layout.addView(textView2);
+                layout.addView(date_text);
+
+                dialogBox.setView(layout);
+
+                dialogBox.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String weight = weight_text.getText().toString();
+                        String date = date_text.getText().toString();
                     }
                 });
                 dialogBox.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
