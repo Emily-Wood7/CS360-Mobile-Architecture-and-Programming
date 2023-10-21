@@ -6,8 +6,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,6 +25,12 @@ public class TrackActivity extends AppCompatActivity {
     private TextView goalWeightDisplay = null;
 
     ArrayList<WeightModel> weightModel = new ArrayList<>();
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.weight_menu, menu);
+        return true;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,5 +129,25 @@ public class TrackActivity extends AppCompatActivity {
 
     private void showEditTextDialog() {
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.notifications) {
+            Intent intent = new Intent(TrackActivity.this, NotificationsActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else if (id == R.id.logout) {
+            Intent intent = new Intent(TrackActivity.this, MainActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        else if (id == R.id.track_weight) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
