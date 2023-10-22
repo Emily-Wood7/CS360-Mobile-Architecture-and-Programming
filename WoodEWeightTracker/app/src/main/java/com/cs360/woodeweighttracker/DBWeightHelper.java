@@ -39,6 +39,32 @@ public class DBWeightHelper extends SQLiteOpenHelper {
         }
     }
 
+    public Boolean updateWeightData(String date, String weight) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("weight", weight);
+        Cursor cursor = db.rawQuery("select * from weights where date = ?", new String[] {date});
+        if (cursor.getCount() > 0) {
+            long result = db.update("weights", contentValues, "date=?", new String[] {date});
+            return result != -1;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public Boolean deleteWeightData(String date) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from weights where date = ?", new String[] {date});
+        if (cursor.getCount() > 0) {
+            long result = db.delete("weights", "date=?", new String[] {date});
+            return result != -1;
+        }
+        else {
+            return false;
+        }
+    }
+
     public Cursor getData() {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from weights", null);
