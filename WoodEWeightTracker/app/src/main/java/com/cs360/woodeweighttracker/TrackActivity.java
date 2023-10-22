@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class TrackActivity extends AppCompatActivity {
     private Button newGoalButton, newWeightButton;
     private String weightText = null;
-    private TextView goalWeightDisplay = null;
+    private TextView goalWeightDisplay;
     DBWeightHelper db;
     ArrayList<String> date, weight;
     Weight_RecyclerViewAdapter weightAdapter;
