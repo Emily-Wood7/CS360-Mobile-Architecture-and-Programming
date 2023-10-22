@@ -20,27 +20,4 @@
     <string name="log_out">Log Out</string>
     <string name="track_weight">Track Weight</string>
 
-    <string-array name="weight_number">
-        <item>150</item>
-        <item>160</item>
-        <item>170</item>
-        <item>180</item>
-        <item>190</item>
-        <item>200</item>
-        <item>210</item>
-        <item>220</item>
-        <item>230</item>
-    </string-array>
-
-    <string-array name="weight_date">
-        <item>06/01/2023</item>
-        <item>05/01/2023</item>
-        <item>04/01/2023</item>
-        <item>03/01/2023</item>
-        <item>02/01/2023</item>
-        <item>01/01/2023</item>
-        <item>12/01/2022</item>
-        <item>11/01/2022</item>
-        <item>10/01/2022</item>
-    </string-array>
 </resources>

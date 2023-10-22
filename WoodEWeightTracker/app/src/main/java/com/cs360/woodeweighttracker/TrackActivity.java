@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -23,8 +26,10 @@ public class TrackActivity extends AppCompatActivity {
     private Button newGoalButton, newWeightButton;
     private String weightText = null;
     private TextView goalWeightDisplay = null;
-
-    ArrayList<WeightModel> weightModel = new ArrayList<>();
+    DBWeightHelper db;
+    ArrayList<String> date, weight;
+    Weight_RecyclerViewAdapter weightAdapter;
+    RecyclerView recyclerView;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -39,6 +44,8 @@ public class TrackActivity extends AppCompatActivity {
         newGoalButton = findViewById(R.id.newGoalButton);
         goalWeightDisplay = findViewById(R.id.goalWeightDisplay);
         newWeightButton = findViewById(R.id.newWeightButton);
+        db = new DBWeightHelper(this);
+        recyclerView = findViewById(R.id.weightRecyclerView);
 
         newGoalButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +102,18 @@ public class TrackActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         String weight = weight_text.getText().toString();
                         String date = date_text.getText().toString();
+                        Boolean savedata = db.insertWeightData(date, weight);
+                        if (TextUtils.isEmpty(weight) || TextUtils.isEmpty(date)) {
+                            Toast.makeText(TrackActivity.this, "Please Enter all fields", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        else {
+                            if (savedata == true) {
+                                Toast.makeText(TrackActivity.this, "Weight Saved Successfully.", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(TrackActivity.this, TrackActivity.class);
+                                startActivity(intent);
+                            }
+                        }
                     }
                 });
                 dialogBox.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -107,28 +126,29 @@ public class TrackActivity extends AppCompatActivity {
             }
         });
 
-        RecyclerView recyclerView = findViewById(R.id.weightRecyclerView);
+        date = new ArrayList<>();
+        weight = new ArrayList<>();
 
-        setUpWeightModels();
+        weightAdapter = new Weight_RecyclerViewAdapter(TrackActivity.this, date, weight);
+        recyclerView.setAdapter(weightAdapter);
 
-        Weight_RecyclerViewAdapter adapter = new Weight_RecyclerViewAdapter(this, weightModel);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(TrackActivity.this));
 
+        displayData();
     }
 
-    private void setUpWeightModels() {
-        String[] weightNumber = getResources().getStringArray(R.array.weight_number);
-        String[] weightDate = getResources().getStringArray(R.array.weight_date);
-
-        for (int i = 0; i < weightNumber.length; i++) {
-            weightModel.add(new WeightModel(weightNumber[i],
-                    weightDate[i]));
+    private void displayData() {
+        Cursor cursor = db.getData();
+        if (cursor.getCount() == -1) {
+            Toast.makeText(this, "No Weights", Toast.LENGTH_SHORT).show();
+            return;
         }
-    }
-
-    private void showEditTextDialog() {
-
+        else {
+            while (cursor.moveToNext()) {
+                date.add(cursor.getString(0));
+                weight.add(cursor.getString(1));
+            }
+        }
     }
 
     @Override
